@@ -1,0 +1,23 @@
+{
+    "name": "phpkit/backend",
+    "description": "通用后台 , 基于 boostrap , ace , Phalcon",
+    "keywords": [
+        "通用后台"
+    ],
+    "homepage": "http://www.phpkit.me/",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "wen",
+            "email": "359945126@qq.com"
+        }
+    ],
+    "config": {
+        "preferred-install": "dist"
+    }, 
+     "autoload": {
+        "psr-4": {
+            "phpkit\\backend\\": "src/"
+        }
+    }
+}
