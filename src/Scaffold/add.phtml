@@ -1,0 +1,60 @@
+ <div class="main-content-inner">
+	<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li>
+				<i class="ace-icon fa fa-home home-icon"></i>
+				<a href=""></a>
+			</li>
+
+		    <li ><a href="<php> echo $this->url->get($this->dispatcher->getControllerName().'/index')</php>"><?php echo $table?>列表</a></li>
+			<li class="active">添加</li>
+		</ul>
+	</div>
+
+	<div class="page-content">
+		<div class="panel-body">
+			<form id="myform" method="post" class="form-horizontal" action="<php> echo $this->url->get($this->dispatcher->getControllerName().'/add')</php>">
+			
+			 <?php foreach($columnsList as $column){?>	 
+					<div class="form-group">
+						<label for="input-title"  class="col-sm-2 control-label"><?php echo $column['text']?></label>
+						<div class="col-sm-7">
+							<input type="text" name="<?php echo $column['name']?>" value="<php> echo $data-><?php echo $column['name']?></php>" class="form-control" >
+						</div>
+					</div>
+				<?php }?>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-7">
+					<button type="submit" class="btn btn-primary">保存</button>
+				</div>
+			</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+ 
+$(function(){
+    $(".form-horizontal").bootstrapValidator({
+        message: '您填入的值不合法',
+        fields:{
+ <?php foreach($columnsList as $column){?>	
+ 	 <?php if($column['required']==1){?>
+			<?php echo $column['name']?>: {
+                message: '<?php echo $column['text']?>',
+                validators: {
+                    notEmpty: {
+                        message: '<?php echo $column['text']?>不能为空'
+                    },
+                }
+            }, 
+     <?php }?>      
+ <?php }?>       
+        }
+    });
+ 
+	});
+ </script> 
