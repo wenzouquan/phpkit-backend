@@ -16,7 +16,7 @@
 			<form id="myform" method="post" class="form-horizontal" action="<php> echo $this->url->get($this->dispatcher->getControllerName().'/add')</php>">
 			
 			 <?php foreach($columnsList as $column){?>	 
-					<div class="form-group">
+					<div class="form-group"  >
 						<label for="input-title"  class="col-sm-2 control-label"><?php echo $column['text']?></label>
 						<div class="col-sm-7">
 							<input type="text" name="<?php echo $column['name']?>" value="<php> echo $data-><?php echo $column['name']?></php>" class="form-control" >

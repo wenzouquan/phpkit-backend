@@ -24,8 +24,8 @@ class Scaffold {
 		$config['table'] = \phpkit\helper\convertUnderline($config['table']);
 		//var_dump($config);
 		$dir = phpkitRoot . "/" . $config['appName'];
-		$this->mk_dir($dir . "/app/views/" . $config['table']);
-		$this->mk_dir($dir . "/app/controllers/");
+		\phpkit\helper\mk_dir($dir . "/app/views/" . $config['table']);
+		\phpkit\helper\mk_dir($dir . "/app/controllers/");
 		$config['controllersDir'] = $dir . "/app/controllers/";
 		$config['viewsDir'] = $dir . "/app/views/" . $config['table'] . "/";
 		$config['modelsDir'] = $dir . "/app/models/";
@@ -58,7 +58,7 @@ class Scaffold {
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		$fileName = $config['viewsDir'] . "index.phtml";
-		$this->saveFile($fileName, $content, $config['overwrite']);
+		\phpkit\helper\saveFile($fileName, $content, $config['overwrite']);
 		//生成添加模板
 		$content = $this->view->render('add');
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);

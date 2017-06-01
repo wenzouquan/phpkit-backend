@@ -43,11 +43,12 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 			$conditions .= " Title like '%$kw%'";
 		}
 
-		$res = $this->model->order($orderBy)->where($conditions)->limit("$pagesize,$offset")->get();
+		$res = $this->model->order($orderBy)->where($conditions)->limit("$pagesize,$offset")->select();
 		$recordsFiltered = $res['recordsFiltered'];
 		$recordsTotal = $res['recordsTotal'];
 		$data = $res["list"];
 		//exit();
+		$lists = array();
 		foreach ($data as $list) {
 			$lists[] = $list;
 		}
@@ -55,7 +56,7 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 			'recordsTotal' => $recordsTotal,
 			'draw' => intval($_GET['draw']),
 			'recordsFiltered' => $recordsFiltered,
-			'data' => (array) $lists,
+			'data' => $lists,
 		);
 		echo json_encode($data);
 	}
