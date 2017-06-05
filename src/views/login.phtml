@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"  >
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit">
+<meta charset="utf-8" />
+<title>登录</title>
+<meta name="description" content="overview &amp; stats" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="http://ace.jeka.by/assets/css/bootstrap.min.css" />
+ <script src="http://ace.jeka.by/assets/js/jquery-2.1.4.min.js"></script>
+</head>
+<style>
+.l-promo-block-v1-content {
+    background-color: rgba(76, 76, 97, 0);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(76, 76, 97, 0)), to(rgba(76, 76, 97, 0.97)));
+    background-image: -webkit-linear-gradient(top, rgba(76, 76, 97, 0), rgba(76, 76, 97, 0.97));
+    background-image: -moz-linear-gradient(top, rgba(76, 76, 97, 0), rgba(76, 76, 97, 0.97));
+    background-image: -ms-linear-gradient(top, rgba(76, 76, 97, 0), rgba(76, 76, 97, 0.97));
+    background-image: -o-linear-gradient(top, rgba(76, 76, 97, 0), rgba(76, 76, 97, 0.97));
+    background-image: linear-gradient(top, rgba(76, 76, 97, 0), rgba(76, 76, 97, 0.97));
+    filter: progid:DXImageTransform.Microsoft.gradient(start-colourStr='rgba(76, 76, 97, 0)', end-colourStr='rgba(76, 76, 97, 0.97)');
+    z-index: -1;
+    background: rgba(76, 76, 97, 0.7);
+    height: 100%;
+}
+body{   background: url(__PUBLIC__/BoxEdu/Images/psd831.jpg) no-repeat center top;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    z-index: 1;}
+.modal{ filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8;}				
+</style>
+<body>
+<div class="l-promo-block-v1-content"></div>
+</body> 
+
+<div class="modal" style="top: 111px;display:block;"    id="myModal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header label-primary">
+              
+              <h4 class="modal-title" id="myModalLabel" style="color:#fff">登录</h4>
+            </div>
+            <div class="modal-body myModal_alert_content">
+              <form class="form-horizontal" id="subbtnSibmit"  method="post">
+  
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+    <div class="col-sm-9">
+    
+     <input type="hidden" class="form-control" name="setAdminUserInfo"  value="1">
+      <input type="text" class="form-control" name="user_name"  id="user" placeholder="邮箱或手机号">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-9">
+      <input type="password" id="pass" class="form-control" name="password"  placeholder="密码">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">验证码</label>
+    <div class="col-sm-5">
+      <input type="text"  class="form-control"  name="code" id="vcode"  />
+          
+            <span class="code_info"  ></span>
+    </div>
+	 <div class="col-sm-3"><img onClick="reloadcode()" style=" height:40px; width:209px" id="code" class="vm" src="__URL__/verify" /></div>
+  </div>
+   
+   
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+      <button type="submit"  style="width:100%"   class="btn btn-default">登陆</button>
+    </div>
+  </div>
+</form>
+            </div>
+            <div class="modal-footer text-center">
+			   
+			   
+            </div>
+          </div>
+        </div>
+      </div>
+    
+<style type="text/css">
+#msg{
+    margin-left: 20px;
+    color:red;
+    font-weight: bold;
+  }
+</style>
+<script>      
+$(function(){
+	//$("#myModal_login").modal("show");
+	$(".l-promo-block-v1-content").height($(window).height());
+	
+		_this=$("#myModal_login");
+					 
+       var h=$(_this).find('.modal-dialog').outerHeight();
+							if($(_this).find('.page').length>0){
+									 var h=$(_this).find('.page').find(".page-content").outerHeight()+80;
+							}
+								var w_h=$(window).height();
+								var l_h=w_h-h-80;
+								if(l_h>0){
+										  var top = l_h/2;
+												$(_this).css("top",top);
+								}else{
+										$(_this).css("top",0);
+									}
+				
+})
+
+</script>
+ 
+
+ 
+</body>
+</html>

@@ -36,4 +36,5 @@ class SystemAdminMenu extends \phpkit\core\BaseModel {
 		$res = $model->order("OrderBy")->select();
 		return $res->toArray();
 	}
+
 }

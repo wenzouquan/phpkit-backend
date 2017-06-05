@@ -62,9 +62,9 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 	}
 
 	public function addAction() {
-		$Id = $this->request->get("Id");
-		if (!empty($Id)) {
-			$model = $this->view->data = $this->model->load($Id);
+		$<?php echo $modelPk ?> = $this->request->get("<?php echo $modelPk ?>");
+		if (!empty($<?php echo $modelPk ?>)) {
+			$model = $this->view->data = $this->model->load($<?php echo $modelPk ?>);
 		}
 		if ($this->request->isPost()) {
 			if (empty($model)) {
@@ -81,7 +81,7 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 				$this->jump($msg);
 
 			} else {
-				$this->jump("保存成功", $this->url->get($this->dispatcher->getControllerName() . '/add') . "?" . $this->view->modelPk . "=" . $Id);
+				$this->jump("保存成功", $this->url->get('<?php echo $controllerName?>/add') . "?<?php echo $modelPk ?>=" . $<?php echo $modelPk ?>);
 			}
 		}
 		$this->adminDisplay();

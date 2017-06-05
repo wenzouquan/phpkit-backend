@@ -6,14 +6,14 @@
 				<a href=""></a>
 			</li>
 
-		    <li ><a href="<php> echo $this->url->get($this->dispatcher->getControllerName().'/index')</php>"><?php echo $table?>列表</a></li>
+		    <li ><a href="<php> echo $this->url->get('<?php echo $controllerName?>/index')</php>"><?php echo $table?>列表</a></li>
 			<li class="active">添加</li>
 		</ul>
 	</div>
 
 	<div class="page-content">
 		<div class="panel-body">
-			<form id="myform" method="post" class="form-horizontal" action="<php> echo $this->url->get($this->dispatcher->getControllerName().'/add')</php>">
+			<form id="myform" method="post" class="form-horizontal" action="<php> echo $this->url->get('<?php echo $controllerName?>/add')</php>">
 			
 			 <?php foreach($columnsList as $column){?>	 
 					<div class="form-group"  >

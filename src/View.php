@@ -22,7 +22,9 @@ class View {
 		//系统菜单
 		$model = new models\SystemAdminMenuUser();
 		$memuModel = new models\SystemAdminMenu();
-		$memuList = $model->getMenuListByUserId();
+		$session = Phpkit::getDi()->getSession();
+		$adminUserInfo = $session->get('adminUserInfo');
+		$memuList = $model->getMenuListByUserId($adminUserInfo['id']);
 		$ActiveMenu = Phpkit::getDi()->getRequest()->getQuery('activemenu');
 		if (empty($ActiveMenu)) {
 			$ActiveMenu = $controllerName;
@@ -45,6 +47,10 @@ class View {
 		$this->view->memuList = $memuList;
 		$this->view->content = $content;
 		echo $this->view->render('index');
+	}
+
+	public function login() {
+		echo $this->view->render('login');
 	}
 
 }

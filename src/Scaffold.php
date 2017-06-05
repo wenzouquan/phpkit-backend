@@ -21,6 +21,7 @@ class Scaffold {
 
 	//生成CRUD
 	function run($config = array()) {
+		$config['controllerName'] = str_replace("_", "-", $config['table']);
 		$config['table'] = \phpkit\helper\convertUnderline($config['table']);
 		//var_dump($config);
 		$dir = phpkitRoot . "/" . $config['appName'];
