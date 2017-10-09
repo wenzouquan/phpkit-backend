@@ -1,6 +1,6 @@
 <?php
 namespace phpkit\backend\models;
-class SystemStoreUser extends \phpkit\core\BaseModel {
+class SystemStoreUser extends \phpkit\base\BaseModel {
 	protected $pasttimeDate;
 	protected $RoleId;
 	protected $StoreInfo;

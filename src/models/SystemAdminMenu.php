@@ -1,10 +1,10 @@
 <?php
 namespace phpkit\backend\models;
-class SystemAdminMenu extends \phpkit\core\BaseModel {
+class SystemAdminMenu extends \phpkit\base\BaseModel {
 
 	protected $GroupName;
 	protected $GroupList;
-	public function initialize() {
+ 	public function initialize() {
 		parent::initialize();
 	}
 

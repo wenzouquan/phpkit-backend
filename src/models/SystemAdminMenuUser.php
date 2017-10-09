@@ -1,8 +1,8 @@
 <?php
 namespace phpkit\backend\models;
-class SystemAdminMenuUser extends \phpkit\core\BaseModel {
+class SystemAdminMenuUser extends \phpkit\base\BaseModel {
 	protected $MenuIds;
-	public function initialize() {
+	 public function initialize() {
 		parent::initialize();
 	}
 
