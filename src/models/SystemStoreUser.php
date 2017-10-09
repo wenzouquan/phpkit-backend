@@ -24,7 +24,7 @@ class SystemStoreUser extends \phpkit\base\BaseModel {
 	}
 
 	public function getRoleId() {
-		$id = $this->id;
+		$id = $this->id; 
 		$model = new \phpkit\auth\models\AddonAuthUser();
 		$roles = $model->load($id);
 		if ($roles) {
