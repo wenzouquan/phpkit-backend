@@ -46,6 +46,8 @@ class View {
 		}
 		$this->view->memuList = $memuList;
 		$this->view->content = $content;
+		$setting = Phpkit::getDi()->getConfig()->get("setting");
+		$this->view->asstesUrl = $setting['asstesUrl'];
 		echo $this->view->render('index');
 	}
 
