@@ -50,6 +50,7 @@ class View {
 		}
 		$this->view->memuList = $memuList;
 		$this->view->content = $content;
+		$this->view->adminUserInfo = $adminUserInfo;
 		$setting = Phpkit::getDi()->getConfig()->get("setting");
 		$this->view->asstesUrl = $setting['asstesUrl'];
 		echo $this->view->render('index');
@@ -60,6 +61,9 @@ class View {
 		$adminUrls = $this->setting['adminUrl'];
          foreach($adminUrls as $k=>$v){
          	 $url = str_replace($k, $v, $url);
+         }
+         if(strpos($url, "http")!==0){
+         	$url=$adminUrls['default'].$url;
          }
          return $url;
 	}
