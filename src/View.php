@@ -49,6 +49,7 @@ class View {
 		$setting = Phpkit::getDi()->getConfig()->get("setting");
 		$this->view->asstesUrl = $setting['asstesUrl'];
 		echo $this->view->render('index');
+
 	}
 
 	public function login() {
