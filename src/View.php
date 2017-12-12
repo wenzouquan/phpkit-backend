@@ -11,10 +11,11 @@ class View {
 
 		Phpkit::getDi();
 		$viewDir = dirname(__FILE__) . '/views/';
-		$this->view = Phpkit::getViews($viewDir);
+		$this->view = Phpkit::getViews($viewDir);	
 		//模板渲染
 		$this->assets = new \Phalcon\Assets\Manager();
-
+		//配置信息
+		$this->setting = Phpkit::getDi()->getConfig()->get('setting');
 	}
 
 	public function display($content) {
@@ -36,11 +37,14 @@ class View {
 			if ($values['Id'] == $ActiveMenuData->Pid) {
 				$values['active'] = 'active open';
 			}
-			foreach ($values['scat'] as $key2 => $value) {
-				if ($value['Id'] == $ActiveMenuData->Id) {
-					$value['active'] = 'active';
+			if(is_array($values['scat'])){
+				foreach ($values['scat'] as $key2 => $value) {
+					if ($value['Id'] == $ActiveMenuData->Id) {
+						$value['active'] = 'active';
+					}
+					$value['Url'] = $this->getUrl($value['Url']);
+					$values['scat'][$key2] = $value;
 				}
-				$values['scat'][$key2] = $value;
 			}
 			$memuList[$key] = $values;
 		}
@@ -50,6 +54,14 @@ class View {
 		$this->view->asstesUrl = $setting['asstesUrl'];
 		echo $this->view->render('index');
 
+	}
+
+	function getUrl($url){
+		$adminUrls = $this->setting['adminUrl'];
+         foreach($adminUrls as $k=>$v){
+         	 $url = str_replace($k, $v, $url);
+         }
+         return $url;
 	}
 
 	public function login() {

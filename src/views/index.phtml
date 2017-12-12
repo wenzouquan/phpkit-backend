@@ -88,7 +88,7 @@
 				</button>
 
 				<div class="navbar-header pull-left">
-					<a href="<?php echo $this->getDi()->getConfig()->get('setting')['adminUrl']?>" class="navbar-brand">
+					<a href="<?php echo $this->getDi()->getConfig()->get('setting')['adminUrl']['default']?>" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
 							<?php echo $this->getDi()->getConfig()->get('setting')['adminTitle']?>
@@ -451,7 +451,7 @@
 						<ul class="submenu">
 							<?php foreach($memus['scat'] as $submenu){?>
 							<li class="<?php echo $submenu['active']?>">
-								<a href="<?php echo $this->di->getConfig()->get('setting')['adminUrl'].$submenu['Url']?>">
+								<a href="<?php echo $submenu['Url']?>">
 									<i class="menu-icon fa fa-caret-right"></i>
 									 <?php echo $submenu['Name']?>
 								</a>
