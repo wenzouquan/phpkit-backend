@@ -50,7 +50,11 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 		//exit();
 		$lists = array();
 		foreach ($data as $list) {
-			$lists[] = $list;
+			//$arr = $list->toArray();
+			 <?php foreach($columnsList as $column){ ?> 
+                $arr['<?php echo $column['name']?>']=$list-><?php echo $column['name']?>;
+             <?php } ?>
+			$lists[] = $arr;
 		}
 		$data = array(
 			'recordsTotal' => $recordsTotal,
