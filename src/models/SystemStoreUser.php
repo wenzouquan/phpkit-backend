@@ -45,7 +45,7 @@ class SystemStoreUser extends \phpkit\base\BaseModel {
 		}
 		$_this = $this;
 		$this->callbackForRole->add(function ($params) use ($_this, $RoleId) {
-			$model = new AddonAuthUser();
+			$model = new \phpkit\auth\models\AddonAuthUser();
 			$model->UserId = $_this->id;
 			$model->RoleId = $RoleId;
 			$bool = $model->save();

@@ -1,0 +1,134 @@
+<php>
+<?php echo $controllerNamespace?'namespace '.$controllerNamespace.";":''?>
+
+use think\Request;
+
+class  <?php echo $table?> extends  <?php echo $controller?>
+{
+
+    public function _initialize() {
+        parent::_initialize();
+        
+        $this->model = new  <?php echo "\\".$modelNamespace."\\".$table?>();
+        $this->modelPk = $this->model->getPk();
+        $asstesUrl = $this->phpkitApp->getDi()->getConfig()->get('setting')['asstesUrl'];
+        $this->assign('asstesUrl',$asstesUrl);
+    }
+	
+    public function index() {
+       
+        $this->adminDisplay();
+
+    }
+
+    //列表查询
+    public function search() {
+        $input = input('get.');
+        $pagesize = $input['length'];// $this->request->getQuery('length', null, "10"); //条数
+        $offset =  $input['start'];//$this->request->getQuery('start', null, "0"); //起始条数
+        $conditions = "";
+        $orderBy = ""; //排序方式
+        $order = $input['order'];//$this->request->getQuery('order'); //排序字段
+        $columns =  $input['columns'];//$this->request->getQuery('columns'); //所有字段
+        // var_dump($columns);
+        // var_dump($order);
+        if (is_array($order)) {
+            foreach ($order as $key => $value) {
+                $orderColumn = $columns[$value['column']]['data'];
+                if ($orderColumn) {
+                    $orderBy .= $orderColumn . " " . $value['dir'] . ",";
+                }
+            }
+            $orderBy = trim($orderBy, ",");
+
+        } else {
+            $orderBy = $this->modelPk . " desc"; //排序方式
+        }
+        //var_dump($this->request->getQuery());
+        //关键字查询
+        $search = $input['search'];//$this->request->getQuery('search');
+        $kw = trim($search['value']);
+        if ($kw) {
+            $conditions .= " Title like '%$kw%'";
+        }
+        $recordsTotal = $this->model->count();
+        $data = $this->model->order($orderBy)->where($conditions)->limit("$pagesize,$offset")->select();
+        $recordsFiltered = $this->model->where($conditions)->count();;
+        //$recordsFiltered = $res['recordsFiltered'];
+       //  $recordsTotal = $res['recordsTotal'];
+       // $data = $res["list"];
+        //exit();
+        $lists = array();
+        foreach ($data as $list) {
+            //$arr = $list->toArray();
+                <?php foreach($columnsList as $column){ ?> 
+                 $arr['<?php echo $column['name']?>']=$list-><?php echo $column['name']?>;
+                <?php } ?>
+			$lists[] = $arr;
+        }
+        $data = array(
+            'recordsTotal' => $recordsTotal,
+            'draw' => intval($_GET['draw']),
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $lists,
+        );
+        echo json_encode($data);
+    }
+
+    public function add() {
+        $input = input('get.');
+        $<?php echo $modelPk ?>=$input['<?php echo $modelPk ?>'];
+        if (!empty($<?php echo $modelPk ?>)) {
+            $data = $this->model->find($<?php echo $modelPk ?>);
+            $this->assign('data',$data);
+        }
+
+
+        if (Request::instance()->isPOST()) {
+            // 过滤post数组中的非数据表字段数据
+            $input = input('post.');
+            $<?php echo $modelPk ?>=$input['<?php echo $modelPk ?>'];
+            if(empty($<?php echo $modelPk ?>)){
+                $allowFields=array();
+                <?php foreach($columnsList as $column){ if($column['name']!=$modelPk){?>        
+                  		$allowFields[]="<?php echo $column['name']?>";  
+                <?php } } ?>
+                $res = $this->model->allowField($allowFields)->save($_POST);
+                if($res){
+                    $<?php echo $modelPk ?> = $this->model-><?php echo $modelPk ?>;
+                }
+            }else{
+                $res = $this->model->allowField($allowFields)->save($_POST,['<?php echo $modelPk ?>' => $<?php echo $modelPk ?>]);
+            }
+            if ($res === false) {
+                $msg = '保存失败';
+                foreach ($this->model->getMessages() as $message) {
+                    $messages[] = $message;
+                }
+                if (is_array($messages)) {
+                    $msg = implode(",", $messages);
+                }
+                $this->error($msg);
+
+            } else {
+                $this->success("保存成功", url('add').'?<?php echo $modelPk ?>='.$<?php echo $modelPk ?> );
+            }
+        }
+        $this->adminDisplay();
+
+    }
+
+    public function delete() {
+        $input = input('get.');
+        $ids = (array) $input["ids"];
+        foreach ($ids as $key => $id) {
+            $r = $this->model->destroy($id);
+        }
+        if ($r) {
+            echo json_encode(array('error' => 0, 'msg' => '删除成功'));
+        } else {
+            echo json_encode(array('error' => 1, 'msg' => is_array($this->model->error) ? implode(",", $this->model->error) : '删除失败'));
+        }
+        exit();
+    }
+}
