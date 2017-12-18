@@ -52,8 +52,8 @@ class  <?php echo $table?> extends  <?php echo $controller?>
             $conditions .= " Title like '%$kw%'";
         }
         $recordsTotal = $this->model->count();
-        $data = $this->model->order($orderBy)->where($conditions)->limit("$pagesize,$offset")->select();
-        $recordsFiltered = $this->model->where($conditions)->count();;
+        $data = $this->model->order($orderBy)->where($conditions)->limit("$offset,$pagesize")->select();
+        $recordsFiltered = $this->model->where($conditions)->count();
         //$recordsFiltered = $res['recordsFiltered'];
        //  $recordsTotal = $res['recordsTotal'];
        // $data = $res["list"];
