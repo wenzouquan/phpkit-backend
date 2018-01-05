@@ -30,6 +30,8 @@ class View {
 		}
 		$ActiveMenuData = $memuModel->where("Code='$ActiveMenu'")->load();
 		//var_dump($ActiveMenuData->toArray());
+		$setting = $this->di->getConfig()->get("setting");
+		$adminUrls=(array)$setting['adminUrl'];
 		foreach ($memuList as $key => $values) {
 			if ($values['Id'] == $ActiveMenuData->Pid) {
 				$values['active'] = 'active open';
@@ -38,14 +40,23 @@ class View {
 				if ($value['Id'] == $ActiveMenuData->Id) {
 					$value['active'] = 'active';
 				}
+				//var
+				foreach ($adminUrls as $key3 => $url) {
+					if(strpos($key3, $value['Url'])===0){
+						 $value['linkUrl']=$url.$value['Url'];
+					} 
+				}
+				
+				$value['Url']=isset($value['linkUrl'])?$value['linkUrl']:$adminUrls['default'].$value['Url'];
 				$values['scat'][$key2] = $value;
 			}
 			$memuList[$key] = $values;
 		}
 		$this->view->memuList = $memuList;
 		$this->view->content = $content;
-		$setting = $this->di->getConfig()->get("setting");
+		
 		$this->view->asstesUrl = $setting['asstesUrl'];
+		//var_dump(expression)
 		//var_dump($this->view);
 		echo $this->view->getRender('Layout',"base");
 		$this->view->disable();
