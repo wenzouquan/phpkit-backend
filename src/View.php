@@ -41,12 +41,11 @@ class View {
 					$value['active'] = 'active';
 				}
 				//var
-				foreach ($adminUrls as $key3 => $url) {
-					if(strpos($key3, $value['Url'])===0){
-						 $value['linkUrl']=$url.$value['Url'];
+				foreach ($adminUrls as $key3 => $url) {					
+					if(strpos( $value['Url'],$key3)===0){
+						 $value['linkUrl']=str_replace($key3, $url, $value['Url']);
 					} 
-				}
-				
+				}				
 				$value['Url']=isset($value['linkUrl'])?$value['linkUrl']:$adminUrls['default'].$value['Url'];
 				$values['scat'][$key2] = $value;
 			}
