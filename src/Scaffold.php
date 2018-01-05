@@ -21,38 +21,18 @@ class Scaffold {
 
 	//生成CRUD
 	function run($config = array()) {
-		
 		$config['controllerName'] = str_replace("_", "-", $config['table']);
-		$config['table']=$config['modelName']?$config['modelName']:$config['table'];
 		$config['table'] = \phpkit\helper\convertUnderline($config['table']);
-		$config['renderDir']=$config['frame']==2?'tp5/':'';
 		//var_dump($config);
-		$dir =  $config['appName'];//生成到哪个目录
-
-		if($config['frame']==2){//tp5
-			\phpkit\helper\mk_dir($dir . "/view/" . lcfirst($config['table']));
-			\phpkit\helper\mk_dir($dir . "/controller/");
-			$config['controllerName'] = $dir."/controller/" . $config['table'] . ".php";
-			$config['viewsDir'] = $dir . "/view/" . lcfirst($config['table']) . "/";
-			$config['modelsDir'] = $dir . "/model/";
-			$config['viewsIndexName'] = $config['viewsDir'] . "index.html";
-			$config['viewsAddName'] = $config['viewsDir'] . "add.html";
-		}else{
-			\phpkit\helper\mk_dir($dir . "/views/" . $config['table']);
-			\phpkit\helper\mk_dir($dir . "/controllers/");
-			$config['controllerName'] = $dir ."/controllers/" . $config['table'] . "Controller.php";
-			$config['viewsDir'] = $dir . "/views/" . $config['table'] . "/";
-			$config['modelsDir'] = $dir . "/models/";
-			$config['viewsIndexName'] = $config['viewsDir'] . "index.phtml";
-			$config['viewsAddName'] = $config['viewsDir'] . "add.phtml";
-		}
-		//$config['overwrite']=1;
-		var_dump($config);
-		
+		$dir = phpkitRoot . "/" . $config['appName'];
+		\phpkit\helper\mk_dir($dir . "/app/views/" . $config['table']);
+		\phpkit\helper\mk_dir($dir . "/app/controllers/");
+		$config['controllersDir'] = $dir . "/app/controllers/";
+		$config['viewsDir'] = $dir . "/app/views/" . $config['table'] . "/";
+		$config['modelsDir'] = $dir . "/app/models/";
 		$this->makeModel($config);
 		$this->makeController($config);
 		$this->makeViews($config);
-		echo 'success:'.'/'.$config['table'].'/index';
 		//var_dump($dir);
 	}
 
@@ -61,12 +41,11 @@ class Scaffold {
 		foreach ($config as $key => $value) {
 			$this->view->$key = $value;
 		}
-		$content = $this->view->render($config['renderDir'].'controller');
+		$content = $this->view->render('controller');
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
-		//$fileName = $config['controllersDir'] . $config['table'] . "Controller.php";
-		//var_dump($config['controllerName']);exit();
-		\phpkit\helper\saveFile($config['controllerName'], $content, $config['overwrite']);
+		$fileName = $config['controllersDir'] . $config['table'] . "Controller.php";
+		\phpkit\helper\saveFile($fileName, $content, $config['overwrite']);
 
 	}
 	//生成views
@@ -76,17 +55,17 @@ class Scaffold {
 		}
 //		var_dump($config);
 		//生成列表模板
-		$content = $this->view->render($config['renderDir'].'list');
+		$content = $this->view->render('list');
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
-		//$fileName = $config['viewsDir'] . "index.phtml";
-		\phpkit\helper\saveFile($config['viewsIndexName'], $content, $config['overwrite']);
+		$fileName = $config['viewsDir'] . "index.phtml";
+		\phpkit\helper\saveFile($fileName, $content, $config['overwrite']);
 		//生成添加模板
-		$content = $this->view->render($config['renderDir'].'add');
+		$content = $this->view->render('add');
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
-		//$fileName = $config['viewsDir'] . "add.phtml";
-		\phpkit\helper\saveFile($config['viewsAddName'], $content, $config['overwrite']);
+		$fileName = $config['viewsDir'] . "add.phtml";
+		\phpkit\helper\saveFile($fileName, $content, $config['overwrite']);
 	}
 
 	//生成model
@@ -94,7 +73,7 @@ class Scaffold {
 		foreach ($config as $key => $value) {
 			$this->view->$key = $value;
 		}
-		$content = $this->view->render($config['renderDir'].'model');
+		$content = $this->view->render('model');
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		$fileName = $config['modelsDir'] . $config['table'] . ".php";

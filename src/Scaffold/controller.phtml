@@ -43,18 +43,14 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 			$conditions .= " Title like '%$kw%'";
 		}
 
-		$res = $this->model->order($orderBy)->where($conditions)->limit("$offset,$pagesize")->select();
+		$res = $this->model->order($orderBy)->where($conditions)->limit("$pagesize,$offset")->select();
 		$recordsFiltered = $res['recordsFiltered'];
 		$recordsTotal = $res['recordsTotal'];
 		$data = $res["list"];
 		//exit();
 		$lists = array();
 		foreach ($data as $list) {
-			//$arr = $list->toArray();
-			 <?php foreach($columnsList as $column){ ?> 
-                $arr['<?php echo $column['name']?>']=$list-><?php echo $column['name']?>;
-             <?php } ?>
-			$lists[] = $arr;
+			$lists[] = $list;
 		}
 		$data = array(
 			'recordsTotal' => $recordsTotal,

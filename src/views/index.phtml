@@ -3,8 +3,6 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title><?php echo $this->getDi()->getConfig()->get('setting')['adminTitle']?></title>
-		<meta name="description" content="Static &amp; Dynamic Tables" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -12,7 +10,6 @@
 		<link rel="stylesheet" href="<?php echo $asstesUrl?>/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-
 		<!-- text fonts -->
 		<link rel="stylesheet" href="<?php echo $asstesUrl?>/css/fonts.googleapis.com.css" />
 
@@ -72,11 +69,13 @@
 		  <style type="text/css">
 		  	div.dataTables_processing{ position: fixed; z-index: 999;border:none; background-color: transparent; }
 		  </style>
+	 {% block head %}{% endblock %}
 	</head>
 
 	<body class="no-skin">
 		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
+				
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
 
@@ -87,15 +86,18 @@
 					<span class="icon-bar"></span>
 				</button>
 
+			 {% block navbarLeft %}
 				<div class="navbar-header pull-left">
-					<a href="<?php echo $this->getDi()->getConfig()->get('setting')['adminUrl']['default']?>" class="navbar-brand">
+					 <a href="<?php echo $this->getDi()->getConfig()->get('setting')['adminUrl']['default']?>" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
 							<?php echo $this->getDi()->getConfig()->get('setting')['adminTitle']?>
 						</small>
 					</a>
 				</div>
+			  {% endblock %}	
 
+			{% block navbarRight %}
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
 						<li class="grey dropdown-modal">
@@ -355,10 +357,10 @@
 
 						<li class="light-blue dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="<?php echo $asstesUrl?>/images/user.jpg"  />
+								<img class="nav-user-photo" src="<?php echo $asstesUrl?>/images//user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									 <?php echo $adminUserInfo['user_name']?>
+									Jason
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -391,6 +393,8 @@
 						</li>
 					</ul>
 				</div>
+			{% endblock %}	
+
 			</div><!-- /.navbar-container -->
 		</div>
 
@@ -405,33 +409,37 @@
 				</script>
 
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<button class="btn btn-success">
-							<i class="ace-icon fa fa-signal"></i>
-						</button>
+					
+					{% block sidebarShortcuts %}
+						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+							<button class="btn btn-success">
+								<i class="ace-icon fa fa-signal"></i>
+							</button>
 
-						<button class="btn btn-info">
-							<i class="ace-icon fa fa-pencil"></i>
-						</button>
+							<button class="btn btn-info">
+								<i class="ace-icon fa fa-pencil"></i>
+							</button>
 
-						<button class="btn btn-warning">
-							<i class="ace-icon fa fa-users"></i>
-						</button>
+							<button class="btn btn-warning">
+								<i class="ace-icon fa fa-users"></i>
+							</button>
 
-						<button class="btn btn-danger">
-							<i class="ace-icon fa fa-cogs"></i>
-						</button>
-					</div>
+							<button class="btn btn-danger">
+								<i class="ace-icon fa fa-cogs"></i>
+							</button>
+						</div>
 
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-						<span class="btn btn-success"></span>
+						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+							<span class="btn btn-success"></span>
 
-						<span class="btn btn-info"></span>
+							<span class="btn btn-info"></span>
 
-						<span class="btn btn-warning"></span>
+							<span class="btn btn-warning"></span>
 
-						<span class="btn btn-danger"></span>
-					</div>
+							<span class="btn btn-danger"></span>
+						</div>
+					{% endblock %}	
+
 				</div><!-- /.sidebar-shortcuts -->
 <!-- 菜单列表 -->
 				<ul class="nav nav-list">
@@ -538,7 +546,8 @@
 								</div><!-- /.pull-left -->
 							</div><!-- /.ace-settings-box -->
 						</div>
-				  <?php echo $content?>
+				  
+				   {% block content %}{% endblock %}
 			</div>
 			<!-- /.main-content -->
 
@@ -549,8 +558,8 @@
 			</a>
 		</div><!-- /.main-container -->
 <!-- ace -->
-		<script src="<?php echo $asstesUrl?>/js/ace-elements.min.js"></script>
-		<script src="<?php echo $asstesUrl?>/js/ace.min.js"></script>	
+<script src="<?php echo $asstesUrl?>/js/ace-elements.min.js"></script>
+<script src="<?php echo $asstesUrl?>/js/ace.min.js"></script>	
 		
 
 <script type="text/html" id="pageLoding">
@@ -573,6 +582,6 @@
   </svg>
 </div>
 </script>
-
+ {% block footer %}{% endblock %}
 </body>
 </html>

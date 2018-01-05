@@ -1,11 +1,5 @@
 <php>
-<?php echo $namespace?'namespace '.$namespace.";":''?>
-
 class <?php echo $table?> extends <?php echo $model?> {
-  
-   <?php if($tableName){?>
-   protected $table = '<?php echo $tableName?>';
-   <?php }?> 
 
 	public function initialize() {
 		parent::initialize();
