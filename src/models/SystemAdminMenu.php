@@ -4,9 +4,7 @@ class SystemAdminMenu extends \phpkit\base\BaseModel {
 
 	protected $GroupName;
 	protected $GroupList;
- 	public function initialize() {
-		parent::initialize();
-	}
+ 	
 
 	//所有菜单
 	public function getMenuList() {

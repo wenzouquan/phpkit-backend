@@ -2,9 +2,7 @@
 namespace phpkit\backend\models;
 class SystemAdminMenuUser extends \phpkit\base\BaseModel {
 	protected $MenuIds;
-	 public function initialize() {
-		parent::initialize();
-	}
+ 
 
 	public function setMenuIds($MenuIds = array()) {
 		$this->MenuIds = is_array($MenuIds) ? implode(",", $MenuIds) : $MenuIds;

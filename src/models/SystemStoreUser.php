@@ -6,9 +6,7 @@ class SystemStoreUser extends \phpkit\base\BaseModel {
 	protected $StoreInfo;
 	public $callbackForRole; //保存成功之后保存权限
 
-	public function initialize() {
-		parent::initialize();
-	}
+	 
 	public function getPasttimeDate() {
 		return date("Y-m-d", $this->pasttime);
 	}
