@@ -70,6 +70,10 @@
 		  	div.dataTables_processing{ position: fixed; z-index: 999;border:none; background-color: transparent; }
 		  </style>
 	 {% block head %}{% endblock %}
+	 <script type="text/javascript">
+	 	template.config("openTag",'{/');
+	 	template.config("closeTag",'/}');
+	 </script>
 	</head>
 
 	<body class="no-skin">
