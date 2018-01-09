@@ -29,7 +29,7 @@
                             <div class="pull-right tableTools-container"></div>
                         </div>
                         <div>
-                            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                            <table id="dynamic-table-<?php echo $table?>" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
                                     <th><label class="pos-rel">
@@ -102,7 +102,7 @@ jQuery(function($) {
    };
 
    //实例化
-   var myTable = phpkitApp.DataTable('dynamic-table',config);
+   var myTable = phpkitApp.DataTable('dynamic-table-<?php echo $table?>',config);
 
     //删一条数据
     function deleteRow(ids) {
