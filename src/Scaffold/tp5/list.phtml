@@ -79,7 +79,7 @@ jQuery(function($) {
                     bSortable: false,
                     data: '<?php echo $modelPk ?>',
                     render: function(data, type, row, meta) {
-                        var html = $("#actBnt").html();
+                        var html = $("#actBnt<?php echo $table?>").html();
                         var render = template.compile(html);
                         var compiledRendered = render({
                             Id: data
@@ -105,7 +105,7 @@ jQuery(function($) {
    var myTable = phpkitApp.DataTable('dynamic-table-<?php echo $table?>',config);
 
     //删一条数据
-    function deleteRow(ids) {
+    function deleteRow<?php echo $table?>(ids) {
         $.getJSON("{:url('delete')}", {
             ids: ids
         }, function(data) {
@@ -117,17 +117,17 @@ jQuery(function($) {
         })
     }
 
-    $(document).on('click', ".delBnt", function() {
+    $(document).on('click', ".delBnt<?php echo $table?>", function() {
         var r = confirm("确认删除吗？");
         if (r) {
             var id = $(this).attr('data-id');
-            deleteRow(id);
+            deleteRow<?php echo $table?>(id);
         }
     })
 })
 </script>
 <!-- 操作按钮 -->
-<script type="text/html" id="actBnt">
+<script type="text/html" id="actBnt<?php echo $table?>">
     <div class="hidden-sm hidden-xs action-buttons">
         <!-- <a class="blue" href="#">
 			<i class="ace-icon fa fa-search-plus bigger-130"></i>
@@ -135,7 +135,7 @@ jQuery(function($) {
         <a class="green" href="{:url('add')}?<?php echo $modelPk ?>={/Id/}">
             <i class="ace-icon fa fa-pencil bigger-130"></i>
         </a>
-        <a class="red delBnt" href="#this" data-id="{/Id/}">
+        <a class="red delBnt<?php echo $table?>" href="#this" data-id="{/Id/}">
             <i class="ace-icon fa fa-trash-o bigger-130"></i>
         </a>
     </div>
@@ -160,7 +160,7 @@ jQuery(function($) {
                     </a>
                 </li>
                 <li>
-                    <a href="#this" " data-id="{/Id/} " class="tooltip-error delBnt " data-rel="tooltip " title="Delete ">
+                    <a href="#this" " data-id="{/Id/} " class="tooltip-error delBnt<?php echo $table?> " data-rel="tooltip " title="Delete ">
 					<span class="red ">
 						<i class="ace-icon fa fa-trash-o bigger-120 "></i>
 					</span>
