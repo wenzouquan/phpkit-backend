@@ -40,7 +40,8 @@ class Scaffold {
 		}else{
 			\phpkit\helper\mk_dir($dir . "/views/" . $config['table']);
 			\phpkit\helper\mk_dir($dir . "/controllers/");
-			$config['controllerName'] = $dir ."/controllers/" . $config['table'] . "Controller.php";
+			//$config['controllerName'] = $config['table'] ;
+			$config['controllerFileName'] = $dir ."/controllers/" . $config['table'] . "Controller.php";
 			$config['viewsDir'] = $dir . "/views/" . $config['table'] . "/";
 			$config['modelsDir'] = $dir . "/models/";
 			$config['viewsIndexName'] = $config['viewsDir'] . "index.phtml";
@@ -66,7 +67,7 @@ class Scaffold {
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		//$fileName = $config['controllersDir'] . $config['table'] . "Controller.php";
 		//var_dump($config['controllerName']);exit();
-		\phpkit\helper\saveFile($config['controllerName'], $content, $config['overwrite']);
+		\phpkit\helper\saveFile($config['controllerFileName'], $content, $config['overwrite']);
 
 	}
 	//生成views
