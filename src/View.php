@@ -30,7 +30,8 @@ class View {
 		}
 		$ActiveMenuData = $memuModel->where("Code='$ActiveMenu'")->load();
 		//var_dump($ActiveMenuData->toArray());
-		$setting = $this->di->getConfig()->get("setting");
+		$setting = $this->di->getSetting();
+		//var_dump($setting);
 		$adminUrls=(array)$setting['adminUrl'];
 		foreach ($memuList as $key => $values) {
 			if ($values['Id'] == $ActiveMenuData->Pid) {
@@ -53,7 +54,7 @@ class View {
 		}
 		$this->view->memuList = $memuList;
 		$this->view->content = $content;
-		
+		$this->view->appSetting=json_decode(json_encode($setting));
 		$this->view->asstesUrl = $setting['asstesUrl'];
 		//var_dump(expression)
 		//var_dump($this->view);
