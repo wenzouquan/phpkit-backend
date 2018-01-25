@@ -48,7 +48,7 @@ class Scaffold {
 			$config['viewsAddName'] = $config['viewsDir'] . "add.phtml";
 		}
 		//$config['overwrite']=1;
-		var_dump($config);
+		 
 		
 		$this->makeModel($config);
 		$this->makeController($config);
@@ -67,7 +67,13 @@ class Scaffold {
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		//$fileName = $config['controllersDir'] . $config['table'] . "Controller.php";
 		//var_dump($config['controllerName']);exit();
-		\phpkit\helper\saveFile($config['controllerFileName'], $content, $config['overwrite']);
+		try {
+			\phpkit\helper\saveFile($config['controllerFileName'], $content, $config['overwrite']);
+			echo $config['controllerFileName']." make suc </br>";
+		} catch (\Exception $e) {
+			echo $e->getMessage()." make fail </br>";
+		}
+		
 
 	}
 	//生成views
@@ -81,13 +87,24 @@ class Scaffold {
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		//$fileName = $config['viewsDir'] . "index.phtml";
-		\phpkit\helper\saveFile($config['viewsIndexName'], $content, $config['overwrite']);
+		try {
+			\phpkit\helper\saveFile($config['viewsIndexName'], $content, $config['overwrite']);
+			echo $config['viewsIndexName']." make suc </br>";
+		}catch (\Exception $e) {
+			echo $e->getMessage()." make fail </br>";
+		}
 		//生成添加模板
 		$content = $this->view->render($config['renderDir'].'add');
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		//$fileName = $config['viewsDir'] . "add.phtml";
-		\phpkit\helper\saveFile($config['viewsAddName'], $content, $config['overwrite']);
+		try {
+			\phpkit\helper\saveFile($config['viewsAddName'], $content, $config['overwrite']);
+			echo $config['viewsAddName']." make suc </br>";
+		} catch (\Exception $e) {
+			echo $e->getMessage()." make fail </br>";
+		}
+		
 	}
 
 	//生成model
@@ -99,7 +116,13 @@ class Scaffold {
 		$content = str_replace("<php>", $this->view->phpStartTag, $content);
 		$content = str_replace("</php>", $this->view->phpEndTag, $content);
 		$fileName = $config['modelsDir'] . $config['table'] . ".php";
-		\phpkit\helper\saveFile($fileName, $content, $config['overwrite']);
+		
+		try {
+			\phpkit\helper\saveFile($fileName, $content, $config['overwrite']);
+			echo $fileName." make suc </br>";
+		} catch (\Exception $e) {
+			echo $e->getMessage()." make fail </br>";
+		}
 	}
 
 }
