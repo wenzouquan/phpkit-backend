@@ -47,10 +47,12 @@ class <?php echo $table?>Controller extends <?php echo $controller?> {
 		$recordsFiltered = $res['recordsFiltered'];
 		$recordsTotal = $res['recordsTotal'];
 		$data = $res["list"];
-		//exit();
+		//exit(); 
 		$lists = array();
 		foreach ($data as $list) {
-			$lists[] = $list;
+	       <?php foreach($columnsList as $column){ ?>$arr['<?php echo $column['name']?>']=$list-><?php echo $column['name']?>;
+	       <?php } ?>
+		  $lists[] = $arr;
 		}
 		$data = array(
 			'recordsTotal' => $recordsTotal,
